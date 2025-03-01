@@ -21,7 +21,6 @@ const client = new StreamClient(API_KEY, API_SECRET, { timeout: 9000 });
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Route to generate Stream token
 app.post('/api/get-stream-token', async (req, res) => {
