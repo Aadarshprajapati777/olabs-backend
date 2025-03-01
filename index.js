@@ -18,14 +18,24 @@ const API_KEY = process.env.REACT_APP_STREAM_API_KEY;
 const API_SECRET = process.env.REACT_APP_STREAM_TOKEN;
 const client = new StreamClient(API_KEY, API_SECRET, { timeout: 9000 });
 
-// Middleware
-app.use(cors());
+// Configure CORS
+app.use(cors({
+  origin: 'https://hack-olabs-dashboard.vercel.app/', // Change this to your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
 app.use(express.json());
 
 // Route to generate Stream token
 app.post('/api/get-stream-token', async (req, res) => {
     try {
         const { userId, userName } = req.body;
+        console.log("got ", req.body);
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
 
         const newUser = {
             id: userId,
@@ -36,12 +46,13 @@ app.post('/api/get-stream-token', async (req, res) => {
             name: userName,
             image: 'https://therapist-prod-public.s3.ap-south-1.amazonaws.com/therapist/profile/67358bf0f29c7915bbaaeaef/1735456843784-WhatsApp%20Image%202024-12-25%20at%2015.21.52.jpeg',
         };
-        const serverClient = await client.upsertUsers([newUser]);
+
+        // Upsert the new user
+        await client.upsertUsers([newUser]);
+
+        // Generate a user token valid for 1 hour
         const token = client.generateUserToken({ user_id: userId, validity_in_seconds: 60 * 60 });
 
-        // Create user token with 24hr expiry
-
-        // Return the token and user info
         res.json({
             token,
             userId,
