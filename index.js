@@ -55,11 +55,6 @@ app.post('/api/get-stream-token', async (req, res) => {
     }
 });
 
-// Catch-all route to serve React app
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
