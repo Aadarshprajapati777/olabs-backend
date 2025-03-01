@@ -20,7 +20,7 @@ const client = new StreamClient(API_KEY, API_SECRET, { timeout: 9000 });
 
 // Configure CORS
 app.use(cors({
-  origin: 'https://hack-olabs-dashboard.vercel.app/', // Change this to your frontend URL
+  origin: 'https://hack-olabs-dashboard.vercel.app', // Change this to your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
