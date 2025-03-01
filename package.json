@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "name": "olabs-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@stream-io/node-sdk": "^0.4.16",
+    "@stream-io/video-react-sdk": "^1.12.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "path": "^0.12.7"
+  }
+}
